@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mapper.BoardMapper">  
+  
+    <select   id="getBoardList">
+    	SELECT  
+    	    BNO
+    	  , MENU_ID 
+    	  , TITLE    	  
+    	  , WRITER
+    	  , TO_CHAR(REGDATE, 'YYYY-MM-DD') REGDATE
+    	  , HIT
+    	 FROM  
+           BOARD
+         WHERE MENU_ID = #{ menu_id  }  
+         ORDER BY  BNO DESC 
+    </select>
+  
+    
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
