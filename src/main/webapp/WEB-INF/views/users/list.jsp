@@ -49,6 +49,7 @@
 	    </tr>
 	    <tr>
 	      <td colspan="5">
+	      	[<a href="/">HOME</a>]&nbsp;&nbsp;&nbsp;	    
 	        [<a href="/Users/WriteForm">사용자 추가</a>]
 	      </td>
 	    </tr>

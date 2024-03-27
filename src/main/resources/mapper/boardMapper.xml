@@ -1,71 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.board.menus.mapper.MenuMapper">  
-  <!-- iNSERT -->
-  <insert id="insertMenu">
-      INSERT INTO MENUS 
-          (
-            MENU_ID,
-            MENU_NAME,
-            MENU_SEQ 
-          )
-        VALUES (
-            #{ menu_id   },
-            #{ menu_name },
-            #{ menu_seq  }
-          )   
-  </insert> 
+<mapper namespace="com.board.mapper.BoardMapper">  
   
-  <insert  id="insertMenuByName">
-  	
-  	INSERT  INTO  MENUS  ( 
-        MENU_ID, 
-        MENU_NAME, 
-        MENU_SEQ  )
-    VALUES   ( 
-       ( SELECT  'MENU' ||  
-            TRIM( TO_CHAR( NVL( MAX ( SUBSTR( MENU_ID, 5, 2) ) , '00')+1, '00') )  
-         FROM   MENUS  ) ,
-       #{ menu_name  },  
-       ( SELECT NVL(MAX(MENU_SEQ), 0) + 1 FROM MENUS ) 
-    )
-  
-  </insert>
-  
-  <select id="getMenuList"  
-      resultType="com.board.menus.domain.MenuVo">
-  
-  	SELECT     MENU_ID, MENU_NAME, MENU_SEQ
-  	 FROM      MENUS
-  	 ORDER BY  MENU_SEQ ASC
-  
-  </select>
-  
-  <select id = "getMenu"  
-     resultType="com.board.menus.domain.MenuVo">
-  
-  	 SELECT  MENU_ID, MENU_NAME, MENU_SEQ
-  	  FROM   MENUS
-  	  WHERE  MENU_ID = #{ menu_id  }
-  
-  </select>
-  
-  <delete id = "deleteMenu">
-  	
-  	DELETE  FROM  MENUS
-  	 WHERE  MENU_ID = #{ menu_id  }
-  	
-  </delete>
-  
-  <update  id="updateMenu">
-  	
-  	UPDATE   MENUS
-  	SET      MENU_NAME =  #{ menu_name  },
-  	         MENU_SEQ  =  #{ menu_seq   } 
-  	WHERE    MENU_ID   =  #{ menu_id    } 
-  
-  </update>
-  
+    <select   id="getBoardList">
+    	SELECT  
+    	    BNO
+    	  , MENU_ID 
+    	  , TITLE    	  
+    	  , WRITER
+    	  , TO_CHAR(REGDATE, 'YYYY-MM-DD') REGDATE
+    	  , HIT
+    	 FROM  
+           BOARD
+         WHERE MENU_ID = #{ menu_id  }  
+         ORDER BY  BNO ASC 
+    </select>
+    
+    <select id="getBoard">
+      SELECT  
+              BNO,
+							MENU_ID,
+					    TITLE,
+					    CONTENT,
+					    WRITER,
+					    TO_CHAR(REGDATE, 'YYYY-MM-DD HH24:MI:SS') REGDATE,
+					    HIT
+			FROM    BOARD
+  	  WHERE   BNO  =  #{ bno }
+  	 </select>
+    
+    <update id="incHit">
+    	UPDATE BOARD
+    	SET HIT = HIT + 1
+    	WHERE BNO = #{ bno } 
+    </update>
+    
+    <insert id="insertBoard">
+			  INSERT INTO BOARD (
+			    BNO,
+			    MENU_ID,
+			    TITLE,
+			    CONTENT,
+			    WRITER
+			    
+			) VALUES (
+			    ( SELECT (NVL(MAX(BNO), 0)+1) FROM BOARD ),
+			    #{ menu_id },
+			    #{ title },
+			    #{ content },
+			    #{ writer }
+			)
+    </insert>
+     
+
+  	 
+    
 </mapper>
 
 
