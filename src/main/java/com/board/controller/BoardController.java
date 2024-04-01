@@ -35,13 +35,16 @@ public class BoardController {
 		List<MenuVo>  menuList   =  menuMapper.getMenuList();
 		
 		// 게시물 목록
-		List<BoardVo> boardList  =  boardMapper.getBoardList( menuVo  ); 
+		List<BoardVo> boardList  =  boardMapper.getBoardList( menuVo ); 
 		System.out.println( boardList );
 		
-		String menu_id = menuVo.getMenu_id();
+		MenuVo mVo = menuMapper.getMenu( menuVo.getMenu_id() );  
+		String menu_id = mVo.getMenu_id();
+		String menu_name = mVo.getMenu_name();
 				
 		ModelAndView  mv         =  new ModelAndView();
 		mv.addObject("menuList",   menuList );
+		mv.addObject("menu_name", menu_name );
 		mv.addObject("menu_id", menu_id );
 		mv.addObject("boardList",  boardList );
 		mv.setViewName("board/list");
@@ -79,7 +82,7 @@ public class BoardController {
 		String menu_id = boardVo.getMenu_id();
 		
 		ModelAndView  mv  = new ModelAndView();
-		mv.setViewName("redirecdt:/Board/List?menu_id=" + menu_id);
+		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id);
 		
 		return mv;
 		
@@ -115,9 +118,46 @@ public class BoardController {
 		return  mv;		
 	}
 	
+	// /Board/Delete?bno=${ vo.bno }&menu_id=${ vo.menu_id}
+	@RequestMapping("/Delete")
+	public ModelAndView   delete (BoardVo boardVo) {
+		// 게시글 삭제
+		boardMapper.deleteBoard(boardVo);
+		
+		String menu_id = boardVo.getMenu_id();
+		// 다시 조회
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id );
+		return mv;
+	}
 	
+	// /UpdateForm?bno=${ vo.bno }&menu_id=${ vo.menu_id }
+	@RequestMapping("/UpdateForm")
+	public ModelAndView updateForm(BoardVo boardVo) {
+		
+		List<MenuVo>  menuList   =  menuMapper.getMenuList();
+		
+		BoardVo vo = boardMapper.getBoard(boardVo);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("vo",vo);
+		mv.setViewName("/board/update");
+		
+		return mv;
+	}
 	
-	
+	// /Board/Update/bno=1
+	@RequestMapping("/Update")
+	public ModelAndView update(BoardVo boardVo) {
+		// 수정
+		boardMapper.updateBoard(boardVo);
+		
+		String menu_id = boardVo.getMenu_id();
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("menu_id",menu_id); //?menu_id=MENU01
+		mv.setViewName("redirect:/Board/List");
+		return mv;
+}
 }
 
 

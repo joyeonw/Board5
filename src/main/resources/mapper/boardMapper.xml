@@ -52,8 +52,19 @@
 			)
     </insert>
      
+     <delete id="deleteBoard">
+     	DELETE  FROM  BOARD
+  		 WHERE  BNO = #{ bno }
+     </delete>
 
-  	 
+  	<update  id="updateBoard">
+  	
+  	UPDATE   BOARD
+  	SET      TITLE =  #{ title  },
+  	         CONTENT  =  #{ content   } 
+  	WHERE    BNO   =  #{ bno   } 
+  
+  </update>
     
 </mapper>
 

@@ -87,6 +87,24 @@
 	
 	</delete>
 	
+    <!-- 유저 로그인 -->
+    <select id="login">
+    	SELECT  
+    					USERID,
+							PASSWD,
+							USERNAME,
+							EMAIL,
+							UPOINT,
+							INDATE
+    	
+    	FROM   TUSER
+    	WHERE  
+    	       USERID = #{ arg0 }
+    	AND    PASSWD = #{ arg1 }   
+    </select>
+    
+	
+	
 </mapper>
 
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +25,16 @@
 	<div>&nbsp;</div>	
 	<div><a href="/Board/List?menu_id=MENU01">게시물 목록</a></div>
 	<div><a href="/Board/WriteForm?menu_id=MENU01">게시물 등록</a></div>
+  <div>&nbsp;</div>	
+  
+  <c:if test="${ sessionScope.login == null }" >
+  	<div><a href="/loginForm">로그인</a></div>
+  </c:if>
+  <div>
+  	${ login.username } 님 환영합니다<br>
+  	당신의 가입일은 ${ login.indate } 입니다<br>
+  </div>
+  <div><a href="/logout">로그아웃</a></div>
   </main>	
 </body>
 </html>

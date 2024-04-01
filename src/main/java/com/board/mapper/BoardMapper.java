@@ -19,4 +19,12 @@ public interface BoardMapper {
 
 	void incHit(BoardVo boardVo);
 
+	void deleteBoard(BoardVo boardVo);
+
+	void updateBoard(BoardVo boardVo);
+
+	
+
+	
+
 }

@@ -54,7 +54,7 @@
 	  
 	 <%@include file="/WEB-INF/include/menus.jsp" %>
 	
-	  <h2>게시물 목록</h2>
+	  <h2>${menu_name} 게시물 목록</h2>
 	  <table id="table" >
 	    <tr>
 	      <td>번호</td>
@@ -74,7 +74,7 @@
 	    <tr>
 	      <td>${ boardVo.bno   }</td>
 	      <td>
-	       <a href="/Board/View?bno=${ boardVo.bno }">
+	       <a href="/Board/View?bno=${ boardVo.bno }&menu_id=${ boardVo.menu_id }">
 	          ${ boardVo.title       }
 	       </a>
 	      </td>	      	      

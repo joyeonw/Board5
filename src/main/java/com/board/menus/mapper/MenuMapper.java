@@ -25,7 +25,6 @@ public interface MenuMapper {
 
 	void updateMenu(MenuVo menuVo);
 
-	
 }
 
 
